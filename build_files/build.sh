@@ -2,7 +2,7 @@
 
 set -ouex pipefail
 
-dnf5 install -y sudo-rs rust-coreutils
+dnf5 install -y sudo-rs uutils-coreutils
 
 ln -sf su-rs /usr/bin/su
 ln -sf sudo-rs /usr/bin/sudo
