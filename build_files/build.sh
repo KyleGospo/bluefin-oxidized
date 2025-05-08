@@ -2,23 +2,15 @@
 
 set -ouex pipefail
 
-### Install packages
+dnf5 install -y sudo-rs rust-coreutils
 
-# Packages can be installed from any enabled yum repo on the image.
-# RPMfusion repos are available by default in ublue main images
-# List of rpmfusion packages can be found here:
-# https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
+ln -sf su-rs /usr/bin/su
+ln -sf sudo-rs /usr/bin/sudo
+ln -sf visudo-rs /usr/bin/visudo
 
-# this installs a package from fedora repos
-dnf5 install -y tmux 
-
-# Use a COPR Example:
-#
-# dnf5 -y copr enable ublue-os/staging
-# dnf5 -y install package
-# Disable COPRs so they don't end up enabled on the final image:
-# dnf5 -y copr disable ublue-os/staging
-
-#### Example for enabling a System Unit File
-
-systemctl enable podman.socket
+for library in /usr/bin/uu_*; do
+    libraryname=$(basename "$library")
+    link="/usr/bin/${libraryname#uu_}"
+    original="/usr/libexec/uutils-coreutils/${libraryname#uu_}"
+    ln -sf $original $link
+done
