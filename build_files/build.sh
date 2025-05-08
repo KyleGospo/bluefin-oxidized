@@ -4,9 +4,9 @@ set -ouex pipefail
 
 dnf5 install -y sudo-rs uutils-coreutils
 
-ln -sf su-rs /usr/bin/su
-ln -sf sudo-rs /usr/bin/sudo
-ln -sf visudo-rs /usr/bin/visudo
+ln -sf /usr/bin/su-rs /usr/bin/su
+ln -sf /usr/bin/sudo-rs /usr/bin/sudo
+ln -sf /usr/bin/visudo-rs /usr/bin/visudo
 
 for library in /usr/bin/uu_*; do
     libraryname=$(basename "$library")
